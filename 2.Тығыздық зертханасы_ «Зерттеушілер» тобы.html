@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Тығыздық зертханасы: «Зерттеушілер» тобы</title>
+<style>
+:root{--bg:#f3f5f7;--card:#fff;--ink:#1c2733;--mut:#5b6875;--line:#d5dce3;--acc:#0e6b73;--accbg:#dff1f2;--ok:#1b7a3d;--okbg:#e2f4e8;--bad:#b3341f;--badbg:#fbe7e3;--bench:#e4d9c6;--scale:#8d99a5;--scale2:#6c7885;--disp:#0f1d17;--dispt:#6dffa8;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12181e;--card:#1b242d;--ink:#e8edf1;--mut:#9aa8b4;--line:#33414d;--acc:#4fc3cc;--accbg:#173a3e;--ok:#6fdc93;--okbg:#17321f;--bad:#ff9a85;--badbg:#3b1d17;--bench:#3a352b;--scale:#5d6975;--scale2:#46515c;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#12181e;--card:#1b242d;--ink:#e8edf1;--mut:#9aa8b4;--line:#33414d;--acc:#4fc3cc;--accbg:#173a3e;--ok:#6fdc93;--okbg:#17321f;--bad:#ff9a85;--badbg:#3b1d17;--bench:#3a352b;--scale:#5d6975;--scale2:#46515c;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;background-color:var(--bg)}
+main{max-width:1060px;margin:0 auto;padding:16px}
+h1{font-size:1.45rem;line-height:1.25;margin:0 0 4px}
+h2{font-size:1.05rem;margin:0 0 8px}
+p{margin:0 0 8px}
+.mut{color:var(--mut);font-size:.92rem}
+.top{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;margin-bottom:12px}
+.timer{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 12px;display:flex;gap:10px;align-items:center}
+.timer b{font-size:1.5rem;font-variant-numeric:tabular-nums}
+.grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:14px}
+@media(max-width:820px){.grid{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px}
+button{font:inherit;cursor:pointer;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:7px 12px}
+button:hover{border-color:var(--acc)}
+button.pri{background:var(--acc);border-color:var(--acc);color:#fff}
+@media(prefers-color-scheme:dark){button.pri{color:#06262a}}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.shelf{display:flex;gap:8px;margin-bottom:10px}
+.shelf button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 4px}
+.shelf button[aria-pressed="true"]{background:var(--accbg);border-color:var(--acc)}
+.bench{background:var(--bench);border-radius:10px;padding:10px 10px 0;min-height:250px;position:relative;overflow:hidden}
+.stage{height:150px;display:flex;align-items:flex-end;justify-content:center}
+.drop{animation:drop .45s cubic-bezier(.3,1.4,.5,1)}
+@keyframes drop{from{transform:translateY(-70px);opacity:.2}to{transform:none;opacity:1}}
+@media(prefers-reduced-motion:reduce){.drop{animation:none}}
+.plat{height:14px;background:var(--scale);border-radius:6px 6px 0 0;width:84%;margin:0 auto}
+.base{background:var(--scale2);border-radius:8px 8px 0 0;padding:10px;display:flex;justify-content:center;gap:10px;align-items:center}
+.disp{background:var(--disp);color:var(--dispt);font:700 1.7rem/1 ui-monospace,Consolas,monospace;padding:8px 14px;border-radius:6px;min-width:150px;text-align:right}
+.tools{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;align-items:center}
+.edge{font-weight:600;color:var(--acc)}
+.mat{width:100%;border-collapse:collapse;font-size:.9rem;margin-top:8px}
+.mat td,.mat th{border-bottom:1px solid var(--line);padding:3px 6px;text-align:left}
+.tw{overflow-x:auto}
+table.res{border-collapse:collapse;width:100%;min-width:620px}
+.res th{font-size:.82rem;text-align:left;padding:4px;color:var(--mut);font-weight:600}
+.res td{padding:4px}
+input,select,textarea{font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:6px;padding:6px;width:100%}
+input{max-width:84px}
+select{min-width:130px}
+textarea{min-height:90px;resize:vertical}
+.msg{font-size:.88rem;padding:5px 8px;border-radius:6px;margin-top:4px}
+.msg.ok{background:var(--okbg);color:var(--ok)}
+.msg.bad{background:var(--badbg);color:var(--bad)}
+.honest{display:flex;gap:8px;align-items:flex-start;margin:8px 0;font-size:.92rem}
+.honest input{width:auto;margin-top:5px}
+.model{background:var(--accbg);border-radius:8px;padding:10px;margin-top:8px}
+</style>
+</head>
+<body>
+<main>
+<div class="top">
+<div>
+<h1>Көлемдері бірдей денелердің массалары неге әртүрлі?</h1>
+<p class="mut">«Зерттеушілер» тобы · 7-сынып · Заттың тығыздығы. Кубтарды таразыға қойып, өлшеп, тығыздығын есептеңдер.</p>
+</div>
+<div class="timer" role="timer" aria-live="off"><span class="mut">Уақыт</span><b id="tm">07:00</b><button id="tb" class="pri">Бастау</button></div>
+</div>
+
+<div class="grid">
+<section class="card" aria-label="Зертхана">
+<h2>1. Зертхана үстелі</h2>
+<div class="shelf" id="shelf"></div>
+<div class="bench">
+<div class="stage" id="stage"><span class="mut">Кубты таңдаңдар: ол таразыға түседі.</span></div>
+<div class="plat"></div>
+<div class="base"><div class="disp" id="disp" aria-live="polite">0,0 г</div></div>
+</div>
+<div class="tools">
+<button id="rul">Қырын сызғышпен өлше</button><span class="edge" id="edge"></span>
+</div>
+<label class="honest"><input type="checkbox" id="noise"> Нақты өлшеу режимі: таразы ±1 г қателікпен көрсетеді (көрсеткішті түзетпей жазыңдар)</label>
+<table class="mat"><caption class="mut" style="text-align:left">Тығыздықтар кестесі</caption>
+<tr><th>Зат</th><th>ρ, г/см³</th><th>ρ, кг/м³</th></tr>
+<tr><td>Алюминий</td><td>2,7</td><td>2700</td></tr>
+<tr><td>Мырыш</td><td>7,1</td><td>7100</td></tr>
+<tr><td>Қалайы</td><td>7,3</td><td>7300</td></tr>
+<tr><td>Темір (болат)</td><td>7,8</td><td>7800</td></tr>
+<tr><td>Мыс</td><td>8,9</td><td>8900</td></tr>
+<tr><td>Қорғасын</td><td>11,3</td><td>11300</td></tr>
+</table>
+</section>
+
+<section class="card" aria-label="Зерттеу кестесі">
+<h2>2. Зерттеу кестесі</h2>
+<p class="mut">Формулалар: V = a · a · a; ρ = m/V; 1 г/см³ = 1000 кг/м³. Үтірді де, нүктені де қолдануға болады.</p>
+<div class="tw"><table class="res"><thead><tr><th>Дене</th><th>m, г</th><th>a, см</th><th>V, см³</th><th>ρ, г/см³</th><th>ρ, кг/м³</th><th>Зат</th></tr></thead><tbody id="rows"></tbody></table></div>
+<div class="tools">
+<button class="pri" id="chk">Кестені тексеру</button>
+<label style="display:flex;gap:6px;align-items:center"><input type="checkbox" id="bonus" style="width:auto"> Қосымша: №4 куб</label>
+</div>
+<div id="fb"></div>
+<h2 style="margin-top:14px">3. Қорытынды</h2>
+<p class="mut">2–3 сөйлем: көлемдер туралы факт, массалардың әртүрлілігінің себебі, кемінде бір сан дәлел.</p>
+<textarea id="concl" placeholder="Денелердің көлемі ..., ал массалары ... Бұл олардың тығыздығы ..., себебі ρ = m/V ..."></textarea>
+<div class="tools"><button id="cmp">Үлгімен салыстыру</button></div>
+<div id="model"></div>
+</section>
+</div>
+</main>
+<script>
+const MAT=[["Алюминий",2700],["Мырыш",7100],["Қалайы",7300],["Темір (болат)",7800],["Мыс",8900],["Қорғасын",11300]];
+const C=[{n:1,m:173,c:"#b8c4cf"},{n:2,m:499,c:"#6f7c89"},{n:3,m:570,c:"#c9794a"},{n:4,m:400,c:"#c9794a"}];
+const read={},edge={};let sel=-1;
+const $=id=>document.getElementById(id);
+const f1=x=>x.toFixed(1).replace(".",",");
+const num=s=>parseFloat(String(s).replace(",","."));
+const near=(a,b,t)=>b!==0&&Math.abs(a-b)/Math.abs(b)<=t;
+function cube(c,s){const k=s||80;return `<svg width="${k}" height="${k}" viewBox="0 0 80 80" aria-hidden="true"><polygon points="40,6 72,22 40,38 8,22" fill="${c}" style="filter:brightness(1.18)"/><polygon points="8,22 40,38 40,74 8,58" fill="${c}"/><polygon points="72,22 40,38 40,74 72,58" fill="${c}" style="filter:brightness(.78)"/></svg>`}
+function shelf(){const n=$("bonus").checked?4:3;$("shelf").innerHTML=C.slice(0,n).map((c,i)=>`<button aria-pressed="${i===sel}" data-i="${i}">${cube(c.c,52)}<span>№${c.n} куб</span></button>`).join("");
+document.querySelectorAll("#shelf button").forEach(b=>b.onclick=()=>put(+b.dataset.i))}
+function put(i){sel=i;const c=C[i];if(!(i in read))read[i]=c.m+($("noise").checked?Math.round((Math.random()*2-1)*10)/10:0);
+$("stage").innerHTML=`<div class="drop">${cube(c.c,110)}</div>`;$("disp").textContent=f1(read[i])+" г";
+$("edge").textContent=i in edge?"a = 4,0 см":"";shelf()}
+$("rul").onclick=()=>{if(sel<0){$("edge").textContent="Алдымен кубты таңда.";return}edge[sel]=4;$("edge").textContent="a = 4,0 см"};
+$("noise").onchange=()=>{for(const k in read)delete read[k];if(sel>=0)put(sel)};
+function rows(){const n=$("bonus").checked?4:3;$("rows").innerHTML=C.slice(0,n).map((c,i)=>`<tr data-i="${i}"><td>№${c.n}</td>${["m","a","V","rg","rk"].map(k=>`<td><input inputmode="decimal" data-k="${k}" aria-label="${k} №${c.n}"></td>`).join("")}<td><select data-k="mat" aria-label="Зат №${c.n}"><option value="">Таңда</option>${MAT.map(m=>`<option>${m[0]}</option>`).join("")}<option value="none">Сәйкес келмейді</option></select></td></tr>`).join("");shelf()}
+$("bonus").onchange=()=>{if(sel>2)sel=-1;rows()};
+function rowCheck(tr){const i=+tr.dataset.i,v=k=>tr.querySelector(`[data-k=${k}]`).value;
+const m=num(v("m")),a=num(v("a")),V=num(v("V")),rg=num(v("rg")),rk=num(v("rk")),mat=v("mat");
+if([m,a,V,rg,rk].some(isNaN)||!mat)return["bad","Барлық ұяшықты толтыр."];
+if(!(i in read))return["bad","Алдымен кубты таразыға қой."];
+if(Math.abs(m-read[i])>0.05)return["bad","Масса таразы көрсеткішімен (" +f1(read[i])+" г) сәйкес емес. Нәтижені бұрмалама."];
+if(Math.abs(a-4)>0.1)return["bad","Қырын қайта өлше (сызғыш батырмасы)."];
+if(!near(V,a*a*a,.02))return["bad","Көлемді қайта есепте: V = a · a · a."];
+if(!near(rg,m/V,.02))return["bad","ρ = m/V. Бөлуді және бірлікті тексер."];
+if(!near(rk,rg*1000,.02))return["bad","1 г/см³ = 1000 кг/м³."];
+const hit=MAT.find(x=>near(rk,x[1],.04));const exp=hit?hit[0]:"none";
+if(mat!==exp)return["bad",exp==="none"?"Кестедегі еш зат осы тығыздыққа сәйкес келмейді.":"Зат дұрыс емес. Тығыздықты кестемен қайта салыстыр."];
+return["ok",exp==="none"?"Дұрыс: ρ ≈ "+f1(rg).replace(",",",")+" г/см³ ешбір затқа сәйкес келмейді, куб қуыс болуы мүмкін.":"Дұрыс: "+mat+"."]}
+$("chk").onclick=()=>{let ok=0;const trs=[...document.querySelectorAll("#rows tr")];
+$("fb").innerHTML=trs.map(tr=>{const[r,t]=rowCheck(tr);if(r==="ok")ok++;return `<div class="msg ${r}">№${C[+tr.dataset.i].n}: ${t}</div>`}).join("");
+if(ok===trs.length&&$("bonus").checked){const m=num(trs[3].querySelector("[data-k=m]").value);const vm=m/8.9;$("fb").innerHTML+=`<div class="msg ok">№4: мыс болса, 400 г мыстың көлемі ≈ ${Math.round(vm)} см³ болар еді, ал куб 64 см³. Қуыс көлемі ≈ ${Math.round(64-vm)} см³.</div>`}}
+$("cmp").onclick=()=>{const rs=[...document.querySelectorAll("#rows tr")].slice(0,3).map(t=>num(t.querySelector("[data-k=rk]").value));
+const s=rs.every(x=>!isNaN(x))?` Тығыздықтары: ${rs.map(x=>Math.round(x)).join(", ")} кг/м³.`:" Алдымен кестені толтыр.";
+$("model").innerHTML=`<div class="model"><b>Үлгі қорытынды.</b> Үш дененің көлемі бірдей (64 см³), ал массалары әртүрлі: 173 г, 499 г және 570 г. Себебі олардың тығыздығы әртүрлі: ρ = m/V.${s} Бірдей көлемде зат неғұрлым тығыз болса, оның массасы соғұрлым көп.<br><span class="mut">Өз қорытындыңды үлгімен салыстыр: көлем, себеп, сан дәлел бар ма?</span></div>`};
+let t=420,iv=null;const draw=()=>$("tm").textContent=String(Math.floor(t/60)).padStart(2,"0")+":"+String(t%60).padStart(2,"0");
+$("tb").onclick=()=>{if(iv){clearInterval(iv);iv=null;t=420;draw();$("tb").textContent="Бастау";return}
+$("tb").textContent="Қайта";iv=setInterval(()=>{if(--t<=0){clearInterval(iv);iv=null;t=0;$("tb").textContent="Бастау"}draw()},1000)};
+rows();
+</script>
+</body>
+</html>
